@@ -38,54 +38,144 @@ linkedin_job_search_new/
 └── README.md              # This file
 ```
 
-## Setup Instructions
+## Detailed Setup Instructions
 
-### Prerequisites
+### 1. Prerequisites
 
-- Python 3.8 or higher
-- Apify account with API key
-- Anthropic account with Claude API key
-- Google account with Google Sheets API enabled
+- **Python 3.8+**: Ensure you have Python 3.8 or newer installed
+- **API Accounts**: You'll need accounts with the following services:
+  - [Apify](https://apify.com) - For LinkedIn job scraping  
+  - [Anthropic](https://anthropic.com) or [OpenRouter](https://openrouter.ai) - For AI analysis
+  - [Google Cloud Platform](https://console.cloud.google.com) - For Google Sheets integration
 
-### Installation
+### 2. Clone the Repository
 
-1. Clone this repository:
+```bash
+git clone https://github.com/excelsier/linkedin-job-search.git
+cd linkedin-job-search
+```
+
+### 3. Set Up Python Environment
+
+Create and activate a virtual environment:
+
+```bash
+# Create virtual environment
+python -m venv venv
+
+# Activate on macOS/Linux
+source venv/bin/activate
+
+# Activate on Windows (Command Prompt)
+venv\Scripts\activate
+
+# Activate on Windows (PowerShell)
+.\venv\Scripts\Activate.ps1
+```
+
+### 4. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 5. Create Required Directories
+
+Ensure these directories exist (they should be created automatically when running the app, but it's good to check):
+
+```bash
+mkdir -p data logs results
+```
+
+### 6. Set Up Your CV/Resume
+
+1. Copy the CV template to create your own:
+   ```bash
+   cp data/cv_template.md data/cv.md
    ```
-   git clone https://github.com/yourusername/linkedin_job_search_new.git
-   cd linkedin_job_search_new
-   ```
 
-2. Create and activate a virtual environment:
-   ```
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
+2. Edit `data/cv.md` with your own information:
+   - Personal information (name, contact, summary)
+   - Skills and expertise
+   - Work experience
+   - Education
+   - Projects and achievements
 
-3. Install dependencies:
-   ```
-   pip install -r requirements.txt
-   ```
+### 7. API Credentials Setup
 
-4. Set up your CV:
-   - Copy `data/cv_template.md` to `data/cv.md`
-   - Edit `cv.md` with your personal information, skills, experience, etc.
+#### 7.1 Create Environment Variables File
 
-5. Set up API credentials:
-   - Set environment variables for API keys:
-     ```
-     export APIFY_API_KEY="your_apify_api_key"
-     export ANTHROPIC_API_KEY="your_anthropic_api_key"
-     ```
-   - Set up Google Sheets API credentials:
-     - Create a project in Google Cloud Console
-     - Enable Google Sheets API
-     - Create OAuth credentials or a service account
-     - Download credentials as JSON and save as `credentials.json` in the project root
+Copy the example environment file:
 
-6. Configure settings in `scripts/config.py`:
-   - Adjust target countries and job roles
-   - Set preferred match score threshold
-   - Configure other parameters as needed
+```bash
+cp .env.example .env
+```
+
+Edit `.env` with your API keys and settings:
+
+```
+# API Keys
+APIFY_API_KEY=your_apify_api_key_here
+ANTHROPIC_API_KEY=your_anthropic_api_key_here
+OPENROUTER_API_KEY=your_openrouter_api_key_here
+
+# Google API configuration
+GOOGLE_APPLICATION_CREDENTIALS=./credentials.json
+```
+
+#### 7.2 Apify API Key
+
+1. Create an [Apify](https://apify.com) account if you don't have one
+2. Go to Account Settings → Integrations → API
+3. Copy your API key to the `.env` file
+
+#### 7.3 LLM API Keys
+
+Choose one of these options:
+
+**Option A: Anthropic Claude (recommended for best quality)**
+1. Sign up for [Anthropic API access](https://console.anthropic.com/)
+2. Get your API key and set it in the `.env` file
+
+**Option B: OpenRouter for Sonnet 3.7 (more affordable option)**
+1. Create an [OpenRouter](https://openrouter.ai) account
+2. Generate an API key and set it in the `.env` file
+
+#### 7.4 Google Sheets API Setup
+
+1. Go to [Google Cloud Console](https://console.cloud.google.com/)
+2. Create a new project
+3. Enable the Google Sheets API and Google Drive API
+4. Go to APIs & Services → Credentials
+5. Create OAuth 2.0 Client ID credentials
+   - Application type: Desktop application
+   - Download the JSON file
+6. Save the downloaded JSON as `credentials.json` in the project root
+
+### 8. Configure the Application
+
+Edit `scripts/config.py` to customize your job search parameters:
+
+- Target countries
+- Job roles and titles
+- Experience levels
+- Remote work preferences
+- LLM model selection
+- Schedule settings
+
+### 9. Run the Verification Script
+
+Verify everything is set up correctly:
+
+```bash
+python scripts/verify_setup.py
+```
+
+This will check that:
+- All required directories exist
+- Environment variables are set
+- API keys are valid
+- CV file exists and is properly formatted
 
 ### Usage
 
@@ -350,6 +440,30 @@ The system provides a comprehensive job analysis format that helps you make info
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Contributing
+
+Contributions are welcome! Here's how you can contribute:
+
+1. Fork the repository
+2. Create your feature branch: `git checkout -b feature/amazing-feature`
+3. Commit your changes: `git commit -m 'Add some amazing feature'`
+4. Push to the branch: `git push origin feature/amazing-feature`
+5. Open a Pull Request
+
+### Development Guidelines
+
+- Add tests for new features
+- Update documentation for changes
+- Follow the existing code style
+- Keep commits focused and atomic
+
+## Acknowledgements
+
+- [Apify](https://apify.com) - For the LinkedIn Jobs Scraper
+- [Anthropic](https://anthropic.com) - For Claude AI models
+- [OpenRouter](https://openrouter.ai) - For alternative LLM access
+- [Google Sheets API](https://developers.google.com/sheets/api) - For results storage and visualization
 
 ## Acknowledgments
 
