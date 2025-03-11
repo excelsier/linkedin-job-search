@@ -1,0 +1,70 @@
+# Environment variables and secrets
+.env
+env/
+venv/
+ENV/
+*.env
+
+# Allow example env file
+!.env.example
+
+# API credentials
+credentials.json
+*_credentials.json
+client_secret*.json
+token.json
+token.pickle
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Data and results that might contain personal information
+data/cv.md
+data/jobs_*.json
+results/
+*.csv
+*.xlsx
+*.csv#
+
+# Logs that might contain sensitive data
+logs/
+*.log
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# OS specific files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+*.swo
